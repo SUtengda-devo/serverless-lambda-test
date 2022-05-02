@@ -1,4 +1,4 @@
-service: serverless-lambda-test
+service: my-sls-lambda
 frameworkVersion: '3'
 
 provider:
@@ -7,8 +7,21 @@ provider:
   stage: dev
   region: eu-west-1
 
+custom:
+  fileUploadBucketName: ${self:service}-bucket-${self:provider.stage}
+
 functions:
   generateRandomNumber:
     handler: src/handler.generateRandomNumber
     timeout: 60 #secondes
     memorySize: 128 # mb
+
+
+resources:
+  Resources:
+    FileBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.fileUploadBucketName}
+        AccessControl: PublicRead
+        
