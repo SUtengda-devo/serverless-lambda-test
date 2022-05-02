@@ -1,0 +1,12 @@
+service: serverless-lambda-test
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+
+functions:
+  hello:
+    handler: src/handler.generateRandomNumber
